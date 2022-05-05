@@ -25,7 +25,7 @@ Compatibility:
 ### import pipeline-logparser library
 in Jenkinsfile import library like this
 ```
-@Library('pipeline-logparser@3.1.2') _
+@Library('pipeline-logparser@3.1.3') _
 ```
 _identifier "pipeline-logparser" is the name of the library set by jenkins administrator in instance configuration:_
 * _it may be different on your instance_
@@ -41,7 +41,7 @@ def mylog = logparser.getLogsWithBranchInfo()
 
 ### Detailed Documentation
 
-see online documentation here: [logparser.txt](https://htmlpreview.github.io/?https://github.com/gdemengin/pipeline-logparser/blob/3.1.2/vars/logparser.txt)  
+see online documentation here: [logparser.txt](https://htmlpreview.github.io/?https://github.com/gdemengin/pipeline-logparser/blob/3.1.3/vars/logparser.txt)  
 * _also available in $JOB_URL/pipeline-syntax/globals#logparser_
   * _visible only after the library has been imported once_
   * _requires configuring 'Markup Formater' as 'Safe HTML' in $JENKINS_URL/configureSecurity_
@@ -610,3 +610,6 @@ Note:
 
 * 3.1.2 (04/2022)
   - fix issue when parsing logs while some node step is still searching for a host to allocate
+
+* 3.1.3 (05/2022)
+  - fix issue with corrupted flowGraph (nodes other than start node without parents)

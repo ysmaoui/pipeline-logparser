@@ -65,12 +65,12 @@ java.util.LinkedHashMap _getFlowGraphMap(build) {
             flowGraphMap[it.enclosingId].children.add(it)
             flowGraphMap[it.id] += _getNodeInfos(it)
         }
-        else {
-            assert it.class == org.jenkinsci.plugins.workflow.graph.FlowStartNode
+        else if (it.class == org.jenkinsci.plugins.workflow.graph.FlowStartNode) {
             assert start == null
             start = it.id
             flowGraphMap[it.id].isBranch = true
         }
+        // else should never happen ... unless some kind of corruption
     }
 
     return [start: start, map: flowGraphMap]
@@ -124,7 +124,7 @@ java.util.LinkedHashMap _getNodeTree(build, _flowGraphMap = null, _node = null) 
         flowGraphMap = _getFlowGraphMap(build)
     }
 
-    if (flowGraphMap.map.size() == 0) {
+    if (flowGraphMap.map.size() == 0 || flowGraphMap.start == null) {
         // pipeline not yet started, or failed before start
         assert _node == null
         return [:]
